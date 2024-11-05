@@ -79,7 +79,7 @@ _(**Table: 1.7**: Klaytn Improvement Proposal KIP7 report Scope)_
 | `KIP7.sol` | `570` |
 | | |
 | Imports: 6 | |
-| `Context.sol.sol` | `24` |
+| `Context.sol` | `24` |
 | `KIP13.sol` | `31` |
 | `IKIP7.sol` | `128` |
 | `IKIP7Metadata.sol` | `29` |
@@ -108,7 +108,7 @@ _(**Table: 1.7**: Klaytn Improvement Proposal KIP7 report Scope)_
 
   Address is a utility library that provides functions to handle addresses more securely. It can check if an address is a contract, safely transfer value, and perform low-level function calls.
 
-  - #### IKIP7Receiver
+- #### IKIP7Receiver:
 
   This is an interface for contracts that can accept KIP7 tokens safely. It includes the onKIP7Received function, which allows a contract to handle incoming tokens and perform necessary checks.
 
@@ -356,7 +356,7 @@ This function takes in an address and an amount, the amount is sent to the addre
 
 #### 2.13 _beforeTokenTransfer(), _afterTokenTransfer();
 
-This function verifies that if ```to``` is a contract, it supports the KIP7Receiver interface, preventing accidental token loss.
+This function verifies that if `to` is a contract, it supports the KIP7Receiver interface, preventing accidental token loss.
 
 ```bash
   function _beforeTokenTransfer(
@@ -388,15 +388,12 @@ _(**Table: 3.1**: KIP7 token standard Qualitative Analysis)_
 
 ### <h3 id="summary">3.2 Summary<h3>
 
-In summary, the contract appears to be well-structured and follows best practices for a Solidity smart contract. It includes essential functions for minting of tokens, transfer, approval etc. The code uses appropriate validation checks and safety for transfer to ensure the integrity and security of token trnsfers. However, as with any code, continuous monitoring, testing, and potential optimizations are recommended to maintain its efficiency and reliability.
-
-This contract is suitable for standard token use cases on Klaytn, with flexibility for advanced applications and compliance with both the KIP7 and KIP13 standards for token and interface identification.
-
+In summary, the contract appears to be well-structured and follows best practices for a Solidity smart contract. It includes essential functions for minting of tokens, transfer, approval etc. The code uses appropriate validation checks and safety for transfer to ensure the integrity and security of token transfers. However, as with any code, continuous monitoring, testing, and potential optimizations are recommended to maintain its efficiency and reliability.
 
 ## <h2 id="conclusion">4.0 CONCLUSION </h2>
 
-In this contract report, I have thoroughly examined the "KIP7" Solidity smart contract, focusing on its design and implementation. "KIP7" provides a solid foundation for fungible tokens on the Klaytn blockchain, with well-considered safety mechanisms and support for safe contract interactions.
+In this contract report, I have thoroughly examined the "KIP7" smart contract, focusing on its design and implementation. "KIP7" provides a solid foundation for fungible tokens on the Klaytn blockchain, with well-considered safety mechanisms and support for safe contract interactions.
 
 The code is well-organized, following established best practices in Solidity development. Its modular design allows easy extension and modification through inheritance, and the use of hooks makes it flexible for custom token implementations. The contract follows best practices for security and efficiency, although developers should be cautious of standard allowance race conditions.
 
-This contract is suitable for standard token use cases on Klaytn, with flexibility for advanced applications and compliance with both the KIP7 and KIP13 standards for token and interface identification
+This contract is suitable for standard token use cases on Klaytn, with flexibility for advanced applications, and compliance with both the KIP7 and KIP13 standards for token and interface identification
