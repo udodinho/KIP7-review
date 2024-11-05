@@ -238,7 +238,7 @@ The transfer function takes in two(2) arguments the `to` and the amount, and sen
     return true;
 }
 ```
-The transfer function allows a spender to transfer tokens on behalf of from.
+The transferFrom function allows a spender to transfer tokens on behalf of `from`. The transferFrom takes in three(3) arguements which are the `from` address, `to` address, and the `amount`, this function calls the spendAllownace function which checks for the allowance given to the spender and then the spender can transfer the amount out.
 
 #### 2.8 increaseAllowance(), decreaseAllowance():
 
@@ -260,7 +260,9 @@ function decreaseAllowance(address spender, uint256 subtractedValue) public virt
 }
 ```
 
-These functions allows the caller to adjust the allowance of the spender.
+These functions allows the caller to adjust the allowance of the spender. The increaseAllowance functions takes in two(2) arguements, the spender's address and the value to be increased to, then it calls the internal approve function which takes in the owner, the spender and the allowance plus the addedValue. while the decreaseALlowance takes in the same number of arguement but this time around it substract the value from the spender. 
+
+The decreaseAllowance checks if the currentAllowance is greater or equal to the value to be subtracted and if it is, it then approves and return a boolean.
 
 ##### 2.9 safeTransfer():
 
@@ -271,7 +273,7 @@ These functions allows the caller to adjust the allowance of the spender.
 }
 ```
 
-This function safeTransfer() works like transfer() function, but if the recipient is a contract, it checks for IKIP7Receiver support which is an interface to prevent token loss.
+This function safeTransfer() works like transfer() function, but if the recipient is a contract, it checks for IKIP7Receiver support which is an interface to prevent token loss. It calls the internal safeTransfer function which takes in four(4) arguements.
 
 ##### 2.10 _safeMint():
 
@@ -289,7 +291,7 @@ function _safeMint(address account, uint256 amount, bytes memory _data) internal
 }
 ```
 
-These functions safely mints tokens, making sure that the recipient can handle KIP7 tokens if it's a contract, reducing the risk of tokens being lost in non compliant contracts.
+These functions safely mints tokens, making sure that the recipient can handle KIP7 tokens if it's a contract, reducing the risk of tokens being lost in non compliant contracts. The safeMint functions are both internal functions. The safeMint calls the internal mint functions which accepts two(2) arguements, the address account and the amount to mint.
 
 ##### 2.11 _mint():
 
@@ -307,7 +309,7 @@ function _mint(address account, uint256 amount) internal virtual {
     }
 ```
 
-This function takes in two(2) arguments, an address and amount, mints an amount of token specified by the inputed amount to the address passed, and emits an event after the token has been minted.
+This function takes in two(2) arguments, an address and amount, mints an amount of token specified by the inputed amount to the address passed, this function checks the account provided if it is not an address zero, then calls an internal functions which takes an address(0), the account and the amount, then the totalSupply is added up with the amount and the balance of the address minting the token is increased and emits an event after the token has been minted.
 
 ##### 2.12 _burn():
 
@@ -330,7 +332,9 @@ This function takes in two(2) arguments, an address and amount, mints an amount 
 }
 ```
 
-This function takes in an address and an amount, the amount is sent to the address which can not be withdrawn and thus decreasing the total supply of that token.
+This burn function is an internal function which takes in an address and an amount, the amount is sent to the address which can not be withdrawn and thus decreasing the total supply of that token.
+
+This function checks the account provided if it is not an address zero, then calls an internal functions which takes the account, an address(0), and the amount, it checks if the balance before is greater than the amount to be burn, and if it is true, the balance is then reduced, also the total supply is deducted from the amount and the balance of the address minting the token is reduced, and emits an event after the token has been deducted.
 
 #### 2.12 _checkOnKIP7Received();
 
@@ -354,9 +358,10 @@ This function takes in an address and an amount, the amount is sent to the addre
 }
 ```
 
+This function verifies that if `to` is a contract, it supports the KIP7Receiver interface, preventing accidental token loss.
+
 #### 2.13 _beforeTokenTransfer(), _afterTokenTransfer();
 
-This function verifies that if `to` is a contract, it supports the KIP7Receiver interface, preventing accidental token loss.
 
 ```bash
   function _beforeTokenTransfer(
